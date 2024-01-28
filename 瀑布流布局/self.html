@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>瀑布流练习</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+      /* Webkit浏览器（Chrome, Safari等） */
+
+      ::-webkit-scrollbar {
+        width: 5px; /* 设置滚动条宽度 */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #94cef2; /* 设置滚动条拖动块的颜色 */
+        border-radius: 6px; /* 设置滚动条拖动块的圆角 */
+      }
+
+      ::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* 设置滚动条轨道的颜色 */
+      }
+
+      body {
+        background-color: rgba(130, 140, 250, 0.2);
+        margin: 0;
+        padding: 0;
+        /* Firefox浏览器 */
+        /* 注意：在 Firefox 中，如果你要自定义滚动条样式，需要设置 "scrollbar-width: thin;" */
+        /* 同时，"scrollbar-color" 属性需要两个参数，第一个是滑块颜色，第二个是滚动条轨道颜色 */
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+      }
+      li {
+        list-style-type: none;
+      }
+      a {
+        text-decoration: none;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* #region 顶部 */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+      }
+      .logo img {
+        width: 50px;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+      .menu {
+        margin-left: auto;
+      }
+      .menu ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .menu ul li {
+        margin-right: 20px;
+      }
+      /* 用于演示的样式 */
+      .taggle {
+        cursor: pointer;
+        padding: 10px;
+        background-color: #eee;
+        margin: 10px;
+        display: inline-block;
+      }
+      /* #endregion 顶部 */
+
+      /* #region 中间 */
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+      .shell {
+        max-width: 1100px;
+        /* 借助column-count属性，将元素均分成5列 */
+        column-count: 5;
+        column-gap: 15px;
+      }
+      .image {
+        margin-bottom: 15px;
+      }
+      .image img {
+        width: 100%;
+      }
+      /* #endregion 中间 */
+
+      /* #region 侧边栏 */
+      .off-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateX(-200px); /* 初始位置在左侧隐藏 */
+        transition: transform 0.3s ease; /*   transform改变时所触发的效果 */
+        /* 滑动视口 */
+        background-color: #f9f9f9;
+        width: 200px;
+        height: 100vh;
+        overflow-y: auto; /* 允许垂直滚动 */
+      }
+      .off-canvas.visible {
+        transform: translateX(0); /* 将元素从左侧移动到右侧 */
+      }
+      .side-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+      }
+      .side-logo img {
+        width: 50px;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+      .side-menu ul li {
+        margin: 0 10px;
+        margin-bottom: 5px;
+        padding-left: 15px;
+        border-radius: 8px;
+        line-height: 25px;
+        cursor: pointer;
+      }
+      .side-menu ul li:hover {
+        background-color: aliceblue;
+      }
+      /* #endregion 侧边栏 */
+      /* 媒体查询操作 */
+      @media (max-width: 1200px) {
+        /* 大屏设备 */
+        .shell {
+          column-count: 4;
+        }
+      }
+      @media (max-width: 850px) {
+        /* 平板设备 */
+        .shell {
+          column-count: 3;
+        }
+      }
+      @media (max-width: 600px) {
+        /* 手机设备 */
+        .shell {
+          column-count: 2;
+        }
+        .taggle {
+          display: inline-block;
+        }
+        .menu {
+          display: none;
+        }
+        .search {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 顶部布局 -->
+    <header>
+      <div class="logo">
+        <img src="Image/1 (19).jpeg" alt="" />
+      </div>
+      <div class="menu">
+        <ul>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+        </ul>
+      </div>
+      <div class="search">
+        <button class="search">搜索</button>
+      </div>
+      <div class="taggle">X</div>
+    </header>
+
+    <!-- 小屏菜单：侧边栏包裹在一个滑动视口内 -->
+    <div class="off-canvas">
+      <div class="side-logo">
+        <img src="Image/1 (19).jpeg" alt="" />
+      </div>
+      <div class="side-menu">
+        <ul>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">menu5</a></li>
+          <li><a href="">menu1</a></li>
+          <li><a href="">menu2</a></li>
+          <li><a href="">menu3</a></li>
+          <li><a href="">menu4</a></li>
+          <li><a href="">底层元素</a></li>
+        </ul>
+      </div>
+      <div class="side-search">
+        <button class="">搜索</button>
+      </div>
+    </div>
+
+    <!-- 瀑布流布局 -->
+    <div class="container">
+      <div class="shell">
+        <div class="image"><img src="Image/1 (1).jpeg" /></div>
+        <div class="image"><img src="Image/1 (2).jpeg" /></div>
+        <div class="image"><img src="Image/1 (3).jpeg" /></div>
+        <div class="image"><img src="Image/1 (4).jpeg" /></div>
+        <div class="image"><img src="Image/1 (5).jpeg" /></div>
+        <div class="image"><img src="Image/1 (6).jpeg" /></div>
+        <div class="image"><img src="Image/1 (7).jpeg" /></div>
+        <div class="image"><img src="Image/1 (8).jpeg" /></div>
+        <div class="image"><img src="Image/1 (9).jpeg" /></div>
+        <div class="image"><img src="Image/1 (10).jpeg" /></div>
+        <div class="image"><img src="Image/1 (11).jpeg" /></div>
+        <div class="image"><img src="Image/1 (12).jpeg" /></div>
+        <div class="image"><img src="Image/1 (13).jpeg" /></div>
+        <div class="image"><img src="Image/1 (14).jpeg" /></div>
+        <div class="image"><img src="Image/1 (15).jpeg" /></div>
+        <div class="image"><img src="Image/1 (16).jpeg" /></div>
+        <div class="image"><img src="Image/1 (17).jpeg" /></div>
+        <div class="image"><img src="Image/1 (18).jpeg" /></div>
+        <div class="image"><img src="Image/1 (19).jpeg" /></div>
+        <div class="image"><img src="Image/1 (20).jpeg" /></div>
+        <div class="image"><img src="Image/1 (21).jpeg" /></div>
+        <div class="image"><img src="Image/1 (22).jpeg" /></div>
+        <div class="image"><img src="Image/1 (23).jpeg" /></div>
+        <div class="image"><img src="Image/1 (24).jpeg" /></div>
+        <div class="image"><img src="Image/1 (25).jpeg" /></div>
+        <div class="image"><img src="Image/1 (26).jpeg" /></div>
+        <div class="image"><img src="Image/1 (27).jpeg" /></div>
+        <div class="image"><img src="Image/1 (28).jpeg" /></div>
+        <div class="image"><img src="Image/1 (29).jpeg" /></div>
+        <div class="image"><img src="Image/1 (30).jpeg" /></div>
+      </div>
+    </div>
+
+    <footer class="footer"></footer>
+  </body>
+  <script>
+    $(() => {
+      $(".taggle").on("click", () => {
+        /* jquery自带函数：不是设置display:none，而是把元素隐藏在左侧 */
+        $(".off-canvas").toggleClass("visible");
+      });
+    });
+  </script>
+</html>

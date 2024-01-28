@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+      .off-canvas {
+        position: fixed;
+        top: 20;
+        left: 100%; /* 初始位置在左侧隐藏 */
+        transform: translateX(0);
+        transition: transform 0.3s ease; /*   transform改变时所触发的效果 */
+        /* 滑动视口 */
+        background-color: yellow;
+        width: 200px;
+        height: 100vh;
+      }
+      .off-canvas.visible {
+        transform: translateX(100%); /* 将元素从左侧移动到右侧 */
+      }
+      .side-logo img {
+        width: 50px;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="taggle">X</div>
+    <!-- 小屏菜单：侧边栏包裹在一个滑动视口内 -->
+    <div>
+      <div class="off-canvas">
+        <div class="side-logo">
+          <img src="Image/1 (19).jpeg" alt="" />
+        </div>
+        <div class="side-menu">
+          <ul>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+          </ul>
+        </div>
+        <div class="side-search">
+          <button class="search">搜索</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(() => {
+        $(".taggle").on("click", () => {
+          /* jquery自带函数 */
+          $(".off-canvas").toggleClass("visible");
+        });
+      });
+    </script>
+  </body>
+</html>
