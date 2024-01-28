@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      header {
+        background-color: #333;
+        padding: 10px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 200px;
+        background-color: #444;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 2;
+      }
+
+      nav a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        margin-bottom: 10px;
+        font-size: 18px;
+      }
+
+      #menu-button {
+        display: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Logo</h1>
+      <div id="menu-button">&#9776;</div>
+      <nav>
+        <a href="#">Menu Item 1</a>
+        <a href="#">Menu Item 2</a>
+        <a href="#">Menu Item 3</a>
+      </nav>
+    </header>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuButton = document.getElementById("menu-button");
+        const nav = document.querySelector("nav");
+
+        // Toggle the menu when the button is clicked
+        menuButton.addEventListener("click", function () {
+          nav.style.display =
+            nav.style.display === "none" || nav.style.display === ""
+              ? "block"
+              : "none";
+        });
+
+        // Hide the menu when clicking outside of it
+        document.addEventListener("click", function (event) {
+          if (event.target !== menuButton && !nav.contains(event.target)) {
+            nav.style.display = "none";
+          }
+        });
+
+        // Show/hide the menu when the window is resized
+        window.addEventListener("resize", function () {
+          if (window.innerWidth <= 600) {
+            menuButton.style.display = "block";
+            nav.style.display = "none";
+          } else {
+            menuButton.style.display = "none";
+            nav.style.display = "block";
+          }
+        });
+
+        // Initial check for window width on page load
+        if (window.innerWidth <= 600) {
+          menuButton.style.display = "block";
+          nav.style.display = "none";
+        } else {
+          menuButton.style.display = "none";
+          nav.style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>
