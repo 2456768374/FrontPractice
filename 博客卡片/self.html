@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>博客卡片-练习</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body{
+      min-width: 1200px;
+    }
+    /* #region 顶部 */
+    .top{
+      background-color: #333;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      
+    }
+    .logo img {
+      width: 40px;
+      /* 设置logo的宽度 */
+      height: auto;
+      /* 让高度自适应 */
+      margin-right: 10px;
+      /* 设置logo与文字之间的间距 */
+    }
+    .menu{
+      margin-left: auto;
+    }
+    .menu ul{
+      display: flex;
+      gap: 20px;
+      font: white;
+      /* 菜单项之间的间距 */
+    }
+    .search {
+      padding: 8px 15px;
+      background-color: #fff;
+      color: #333;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+    /* #endregion-end 顶部 */
+
+    /* #region 主体 */
+    .mid{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%);
+      height: 800px;
+    }
+    .shell{
+      width: 780px;
+      height: 580px;
+      background-color: #ffffff;
+      
+      position: relative;
+    }
+
+    .head{
+      height: 340px;
+      /* 父元素relative布局：为before伪元素服务 */
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* 伪元素样式：伪元素是虚拟元素，不存在于DOM中，但可以通过CSS为其添加样式 */
+    .head::before{
+      /* 生成一个空字符串 */
+      content: '';
+      /* 所占宽度是其父元素的，即head */
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: url("./1.png");
+      /* 使图片铺满，保持比例，可能会裁剪 */
+      background-size: cover;
+      z-index: -1;
+      /* CSS旋转-4度 */
+      transform: skewY(-4deg);
+      /* 设置左上角为原点来进行旋转 */
+      transform-origin: 0 0;
+
+    }
+
+    .cover{
+      /* 父元素shell */
+      position: absolute;
+      top: 190px;
+      left: 25px;
+      width: 220px;
+      z-index: 2;
+      border-radius: 500px;
+      border: 10px #fff solid;
+      box-shadow: 0 5px 10px #00000065;
+    }
+
+    .data{
+      /* 这里把距离写死了（应该写死，毕竟是card，而不是布局） */
+      padding: 190px 0 0 280px;
+      text-shadow: 0 0 20px #000;
+    }
+
+    .data .title1{
+      color: white;
+      font: 900 50px '';
+      margin-bottom: 5px;
+      position: relative;
+    }
+    .data .title1 span{
+      position: absolute;
+      top: 17px;
+      margin-left: 12px;
+      background: #ffe44c;
+      border-radius: 5px;
+      color: #000000;
+      font-size: 14px;
+      padding: 0px 4px;
+    }
+    .data .title2 {
+      color: #fff;
+      font: 500 24px '';
+    }
+    /* endregion 主体 */
+
+    /* region 底部 */
+    .bottom{
+      
+    }
+    /* #endregion 底部 */
+
+    /* #region 底部 */
+    .foot{
+      /* 设置行高和文本颜色 */
+      line-height: 26px;
+      color: #444;
+      /* 布局使用flex代替float */
+      display: flex;
+    }
+    .tags{
+      
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      /* 位置写死，实现定位 */
+      padding-left: 30px;
+      padding-top: 100px;
+      width: 250px;
+    }
+    .tag {
+      background: rgb(149, 178, 255);
+      color: #fff;
+      border-radius: 10px;
+      padding: 3px 8px;
+      font-size: 14px;
+      margin-right: 4px;
+      line-height: 18px;
+      cursor: pointer;
+    }
+
+    .tag:hover {
+      background: #eee4ad;
+      color: #444;
+    }
+    .introduce {
+      padding: 25px 0 0 35px;
+      width: 480px;
+    }
+    
+    /* #endregion 底部 */
+
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="logo">
+      <img src="./2.png" alt="Logo">
+      <span>Your Logo Text</span>
+    </div>
+    
+    <div class="menu">
+      <ul>
+        <li><a href="">menu1</a></li>
+        <li><a href="">menu2</a></li>
+        <li><a href="">menu3</a></li>
+        <li><a href="">menu4</a></li>
+        <li><a href="">menu5</a></li>
+      </ul>
+    </div>
+    <button class="search">Search</button>
+  </div>
+
+
+  <div class="mid">
+    <div class="shell">
+      <img src="./2.png" alt="" class="cover">
+      <div class="head">
+        <div class="data">
+          <div class="title1">山羊の前端小窝<span>BILIBILI</span></div>
+          <div class="title2">前端开发热爱者</div>
+        </div>
+      </div>
+
+
+      <div class="foot">
+        <div class="tags">
+          <span class="tag">#HTML</span>
+          <span class="tag">#CSS</span>
+          <span class="tag">#JS</span>
+          <span class="tag">#JQ</span>
+          <span class="tag">#bootstrap</span>
+          <span class="tag">#PR</span>
+          <span class="tag">#AE</span>
+          <span class="tag">#Vscode</span>
+        </div>
+        <div class="introduce">
+          <p>
+            Hello everyone, I am a junior girl, I am very glad to have the opportunity to introduce myself to
+            you. I have a strong interest in CSS and love sports.
+            First, let me talk about my love of CSS. CSS is a language for web design and layout that makes web
+            pages beautiful, readable, and easy to navigate. One of the things I like about CSS is its
+            flexibility, by using different styles and layouts...
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+  <div class="bottom" style="background-color: aqua;">
+    123
+  </div>
+  
+</body>
+</html>

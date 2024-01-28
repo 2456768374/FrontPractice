@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .top {
+      background-color: #333;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 40px;
+      /* 设置logo的宽度 */
+      height: auto;
+      /* 让高度自适应 */
+      margin-right: 10px;
+      /* 设置logo与文字之间的间距 */
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+      /* 菜单项之间的间距 */
+    }
+
+    .search {
+      margin-left: auto;
+      /* 将搜索按钮推到最右侧 */
+      padding: 8px 15px;
+      background-color: #fff;
+      color: #333;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top">
+    <div class="logo">
+      <img src="your-logo.png" alt="Logo">
+      <span>Your Logo Text</span>
+    </div>
+
+    <div class="menu">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <button class="search">Search</button>
+  </div>
+
+</body>
+
+</html>
