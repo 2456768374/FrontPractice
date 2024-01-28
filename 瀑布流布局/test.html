@@ -3,98 +3,102 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-      }
-
-      header {
-        background-color: #333;
-        padding: 10px;
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      nav {
-        display: none;
+      .off-canvas {
         position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
+        top: 20;
+        left: 100%; /* 初始位置在左侧隐藏 */
+        transform: translateX(0);
+        transition: transform 0.3s ease; /*   transform改变时所触发的效果 */
+        /* 滑动视口 */
+        background-color: yellow;
         width: 200px;
-        background-color: #444;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        z-index: 2;
+        height: 100vh;
       }
-
-      nav a {
-        display: block;
-        color: white;
-        text-decoration: none;
-        margin-bottom: 10px;
-        font-size: 18px;
+      .off-canvas.visible {
+        transform: translateX(100%); /* 将元素从左侧移动到右侧 */
       }
-
-      #menu-button {
-        display: none;
-        cursor: pointer;
+      .side-logo img {
+        width: 50px;
+        margin-right: 10px;
+        margin-left: 10px;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Logo</h1>
-      <div id="menu-button">&#9776;</div>
-      <nav>
-        <a href="#">Menu Item 1</a>
-        <a href="#">Menu Item 2</a>
-        <a href="#">Menu Item 3</a>
-      </nav>
-    </header>
+    <div class="taggle">X</div>
+    <!-- 小屏菜单：侧边栏包裹在一个滑动视口内 -->
+    <div>
+      <div class="off-canvas">
+        <div class="side-logo">
+          <img src="Image/1 (19).jpeg" alt="" />
+        </div>
+        <div class="side-menu">
+          <ul>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+            <li><a href="">menu5</a></li>
+            <li><a href="">menu1</a></li>
+            <li><a href="">menu2</a></li>
+            <li><a href="">menu3</a></li>
+            <li><a href="">menu4</a></li>
+          </ul>
+        </div>
+        <div class="side-search">
+          <button class="search">搜索</button>
+        </div>
+      </div>
+    </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const menuButton = document.getElementById("menu-button");
-        const nav = document.querySelector("nav");
-
-        // Toggle the menu when the button is clicked
-        menuButton.addEventListener("click", function () {
-          nav.style.display =
-            nav.style.display === "none" || nav.style.display === ""
-              ? "block"
-              : "none";
+      $(() => {
+        $(".taggle").on("click", () => {
+          /* jquery自带函数 */
+          $(".off-canvas").toggleClass("visible");
         });
-
-        // Hide the menu when clicking outside of it
-        document.addEventListener("click", function (event) {
-          if (event.target !== menuButton && !nav.contains(event.target)) {
-            nav.style.display = "none";
-          }
-        });
-
-        // Show/hide the menu when the window is resized
-        window.addEventListener("resize", function () {
-          if (window.innerWidth <= 600) {
-            menuButton.style.display = "block";
-            nav.style.display = "none";
-          } else {
-            menuButton.style.display = "none";
-            nav.style.display = "block";
-          }
-        });
-
-        // Initial check for window width on page load
-        if (window.innerWidth <= 600) {
-          menuButton.style.display = "block";
-          nav.style.display = "none";
-        } else {
-          menuButton.style.display = "none";
-          nav.style.display = "block";
-        }
       });
     </script>
   </body>

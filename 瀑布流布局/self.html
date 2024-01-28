@@ -6,16 +6,40 @@
     <title>瀑布流练习</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
+      /* Webkit浏览器（Chrome, Safari等） */
+
+      ::-webkit-scrollbar {
+        width: 5px; /* 设置滚动条宽度 */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #94cef2; /* 设置滚动条拖动块的颜色 */
+        border-radius: 6px; /* 设置滚动条拖动块的圆角 */
+      }
+
+      ::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* 设置滚动条轨道的颜色 */
+      }
+
       body {
         background-color: rgba(130, 140, 250, 0.2);
         margin: 0;
         padding: 0;
+        /* Firefox浏览器 */
+        /* 注意：在 Firefox 中，如果你要自定义滚动条样式，需要设置 "scrollbar-width: thin;" */
+        /* 同时，"scrollbar-color" 属性需要两个参数，第一个是滑块颜色，第二个是滚动条轨道颜色 */
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
       }
       li {
         list-style-type: none;
       }
       a {
         text-decoration: none;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
       }
 
       /* #region 顶部 */
@@ -47,7 +71,7 @@
         padding: 10px;
         background-color: #eee;
         margin: 10px;
-        display: none;
+        display: inline-block;
       }
       /* #endregion 顶部 */
 
@@ -57,7 +81,7 @@
         justify-content: center;
       }
       .shell {
-        max-width: 1300px;
+        max-width: 1100px;
         /* 借助column-count属性，将元素均分成5列 */
         column-count: 5;
         column-gap: 15px;
@@ -72,20 +96,41 @@
 
       /* #region 侧边栏 */
       .off-canvas {
-        display: none;
         position: fixed;
         top: 0;
         left: 0;
+        transform: translateX(-200px); /* 初始位置在左侧隐藏 */
+        transition: transform 0.3s ease; /*   transform改变时所触发的效果 */
         /* 滑动视口 */
-        background-color: yellow;
+        background-color: #f9f9f9;
         width: 200px;
-        height: 100%;
+        height: 100vh;
         overflow-y: auto; /* 允许垂直滚动 */
+      }
+      .off-canvas.visible {
+        transform: translateX(0); /* 将元素从左侧移动到右侧 */
+      }
+      .side-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
       }
       .side-logo img {
         width: 50px;
         margin-right: 10px;
         margin-left: 10px;
+      }
+      .side-menu ul li {
+        margin: 0 10px;
+        margin-bottom: 5px;
+        padding-left: 15px;
+        border-radius: 8px;
+        line-height: 25px;
+        cursor: pointer;
+      }
+      .side-menu ul li:hover {
+        background-color: aliceblue;
       }
       /* #endregion 侧边栏 */
       /* 媒体查询操作 */
@@ -195,10 +240,11 @@
           <li><a href="">menu2</a></li>
           <li><a href="">menu3</a></li>
           <li><a href="">menu4</a></li>
+          <li><a href="">底层元素</a></li>
         </ul>
       </div>
       <div class="side-search">
-        <button class="search">搜索</button>
+        <button class="">搜索</button>
       </div>
     </div>
 
@@ -243,8 +289,8 @@
   <script>
     $(() => {
       $(".taggle").on("click", () => {
-        /* jquery自带函数 */
-        $(".off-canvas").toggle();
+        /* jquery自带函数：不是设置display:none，而是把元素隐藏在左侧 */
+        $(".off-canvas").toggleClass("visible");
       });
     });
   </script>
