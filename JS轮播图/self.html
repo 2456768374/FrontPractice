@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轮播图</title>
+    <link rel="stylesheet" href="self.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <ul class="images">
+        <li class="img"></li>
+        <li class="img"></li>
+        <li class="img"></li>
+      </ul>
+      <ul class="min-images">
+        <li class="min"></li>
+        <li class="min"></li>
+        <li class="min"></li>
+      </ul>
+      <div class="button">
+        <div class="button-left"><</div>
+        <div class="button-right">></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    /* 
+      轮播图的核心，就是index，
+      position函数通过index来改变当前现实的图片
+    */
+    let left = document.querySelector(".button-left");
+    let right = document.querySelector(".button-right");
+    let min = document.querySelectorAll(".min");
+    let images = document.querySelector(".images");
+
+    let index = 0; //计算和控制图片的位置
+    let time; //定时器
+
+    // 定位函数：结合index来显示当前图片
+    function position() {
+      images.style.left = index * -100 + "%";
+    }
+
+    function add() {
+      if (index >= min.length - 1) {
+        index = 0;
+      } else {
+        index++;
+      }
+    }
+
+    function desc() {
+      if (index < 1) {
+        index = min.length - 1;
+      } else {
+        index--;
+      }
+    }
+
+    function timer() {
+      time = setInterval(() => {
+        //每三秒index加一
+        index++;
+        //desc和add均是用来检测index是否越界的
+        //一减一加相抵消，只有越界检测起作用
+        desc();
+        add();
+        //position函数实现图片显示
+        position();
+      }, 3000);
+    }
+
+    left.addEventListener("click", () => {
+      desc();
+      position();
+      //需要清除定时器，否则会出现连跳两张的现象
+      clearInterval(time);
+      //再次启动定时器
+      timer();
+    });
+    right.addEventListener("click", () => {
+      add();
+      position();
+      clearInterval(time);
+      timer();
+    });
+
+    //遍历为每个按钮添加事件
+    for (let i = 0; i < min.length; i++) {
+      min[i].addEventListener("click", () => {
+        index = i;
+        position();
+        clearInterval(time);
+        timer();
+      });
+    }
+
+    //定时器执行
+    timer();
+  </script>
+</html>

@@ -1,0 +1,95 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  bottom: 0;
+  list-style: none;
+  text-decoration: none;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgb(170, 190, 250);
+}
+.shell{
+  width: 900px;
+  height: 500px;
+  position: relative;
+  border-radius: 5px;
+  border: 10px #fff solid;
+  box-shadow: 20px 30px 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;/* 防止li的img后面的图片溢出 */
+
+  .images{
+    width: 300%;/* 有几张图片，则width为相应倍数 */
+    height: 100%;
+    display: flex;
+    position: absolute;
+    left: 0;
+    transition: .2s;
+
+    .img{
+      width: 100%;
+      background-size: cover;
+    }
+    .img:nth-child(1) {
+      background-image: url("images/1.jpg");
+    }
+
+    .img:nth-child(2) {
+      background-image: url("images/2.jpg");
+    }
+
+    .img:nth-child(3) {
+      background-image: url("images/3.jpg");
+    }
+  }
+
+  .min-images{
+    display: flex;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 20px;
+    width: 40%;
+    z-index: 999;
+    right: 10%;
+
+    .min{
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      border-radius: 50%;
+      background-size: cover;
+      background-color: solid rgba(255, 255, 255, 0.5) 5px;
+      /* 设置背景图像的起始位置：让图像看起来尽量居中 */
+      background-position: -20px 0;
+    }
+    .min:nth-child(1) {
+      background-image: url("images/1.jpg");
+    }
+    .min:nth-child(2) {
+      background-image: url("images/2.jpg");
+    }
+    .min:nth-child(3) {
+      background-image: url("images/3.jpg");
+    }
+  }
+
+  .button{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+
+    .button-left,
+    .button-right{
+      font-size: 50px;
+      padding: 0 20px;
+      cursor: pointer;
+      line-height: 500px;
+    }
+  }
+}
